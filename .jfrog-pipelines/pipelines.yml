@@ -1,0 +1,22 @@
+resources:
+  - name: git_repo
+    type: GitRepo
+    configuration:
+      gitProvider: mkGithub
+      path: Manokarthi2412/gradle-build
+      branches:
+        include: main
+pipelines: 
+  name: gradle_ci
+  steps:
+    - name: build
+      type: GradleBuild
+      configuration:
+        integrations:
+          - name: mkartifactory
+        inputResources:
+          - name: git_repo
+        gradleCommand: hello
+        sourceLocation: . #optional
+        resolverRepo: templates-gradle-remote #optional
+        deployerRepo: templates-gradle-local #optional
