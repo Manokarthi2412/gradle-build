@@ -1,5 +1,5 @@
 resources:
-  - name: git_repo
+  - name: git_repo_gradle
     type: GitRepo
     configuration:
       gitProvider: mkGithub
@@ -7,16 +7,15 @@ resources:
       branches:
         include: main
 pipelines: 
-  name: gradle_ci
-  steps:
-    - name: build
-      type: GradleBuild
-      configuration:
-        integrations:
-          - name: mkartifactory
-        inputResources:
-          - name: git_repo
-        gradleCommand: hello
-        sourceLocation: . #optional
-        resolverRepo: templates-gradle-remote #optional
-        deployerRepo: templates-gradle-local #optional
+  - name: gradle_ci
+    steps:
+      - name: build
+        type: GradleBuild
+        configuration:
+          integrations:
+            - name: mkartifactory
+          inputResources:
+            - name: git_repo_gradle
+          gradleCommand: hello
+          sourceLocation: . #optional
+          
